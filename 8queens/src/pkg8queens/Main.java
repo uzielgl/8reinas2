@@ -18,6 +18,47 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        int i = 0;
+        Tablero best_solucion = null;
+        Poblacion p = new Poblacion( 100 );      
+        for( ; i<10000; i++){
+        
+            
+            ArrayList<Tablero> parents = p.getParents();
+            ArrayList<Tablero> childs = p.getChilds( parents);
+            
+            //Agregamos los hijos a la población inicial y ordenamos
+            p.poblacion.addAll(childs);
+            Collections.sort(p.poblacion);
+
+            //Eliminamos los peores
+            p.poblacion = new ArrayList<Tablero>( p.poblacion.subList(0, 100) );
+            
+            //Posible solución 
+            best_solucion = (Tablero) p.poblacion.get(0);
+            System.out.println("evaluacion " + i);
+            System.out.println("calidad "  + best_solucion.getCalidad() );
+            //System.out.println( best_solucion.bidimensional() ) ;
+            if( best_solucion.getCalidad() == 0){
+                break;
+            }
+        }
+        
+        System.out.println( best_solucion.bidimensional() );
+        System.out.println("evaluaciones" + i);
+        System.out.println( best_solucion );
+        
+        
+        
+        
+        
+        
+        
+        
+  
+        
+        
+        
         //Tablero t = new Tablero();
         
         /*
@@ -25,29 +66,74 @@ public class Main {
         System.out.println( "Ataques : " + t.getCalidad() );
         * */
         
-        Poblacion p = new Poblacion();
-              
+        /*
+        Tablero t = new Tablero();
+        println t.bidimensional();
+        println t.getCalidad();        
+        /*
+         *
+        for(i in 0..1000){
+            t.mutate();
+        
+            println t.bidimensional();
+            println t.getCalidad();
+        }*/
+        
+     
+        
+        /*
+        Tablero t2 = new Tablero();
+        println t2.bidimensional();
+        println t2.getCalidad();
+        
+        Tablero c = t.cruza( t2 );
+        println c.bidimensional();
+        println c.getCalidad();
+        */
         
         
-        ArrayList<Tablero> rands = p.get5randoms();
         
         
         
-        ArrayList<Tablero> best2 = p.get2best( rands );
+        /*
         
-        ArrayList<Tablero> childs = p.cruzar( best2.get(0), best2.get(1) );
+        for( j in 1..30 ){
+            
+            Tablero solucion = null;
+            def i = 0;
+            Poblacion p = new Poblacion();
+            
+            for(  ; i<10000 ; i++){    
+                ArrayList<Tablero> rands = p.get5randoms();
+                ArrayList<Tablero> best2 = p.get2best( rands );
+                ArrayList<Tablero> childs = p.cruzar( best2.get(0), best2.get(1) );
+                p.mutate( childs );
+                
+                p.poblacion.addAll( childs );
+                
+                Collections.sort( p.poblacion );
+                
+                p.poblacion = new ArrayList<Tablero>( p.poblacion.subList(0, 100) );
+
+                if( p.poblacion.get(0).getCalidad() == 0 ){
+                    solucion = p.poblacion.get(0);
+                    i++;
+                    break;
+                }
+            }
+            
+            println "--------------- Corrida $j ------------------"
+            println "Evaluciones o generaciones: " + i;
+            println solucion.bidimensional()
+            println "---------------------------------------------"
+            println ""
+            
+        }
         
-        p.mutate( childs );
-        
-        p.poblacion.addAll( childs );
-        
-        Collections.sort( p.poblacion );
-        
-        p.poblacion = new ArrayList<Tablero>( p.poblacion.subList(0, 100) );
+        */
         
         
-        
-        
+
         /*
         System.out.println( p.poblacion );
         */

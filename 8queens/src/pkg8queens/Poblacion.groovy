@@ -12,20 +12,56 @@ package pkg8queens
 class Poblacion{
     public ArrayList poblacion = [];
     public mutationProbability = 0.8;
+    public parentsPercent = 0.25;
+    public bestPercent = 0.75;
+    public worstPercent = 0.25;
     
+    public r = new Random();
     
-    public Poblacion(  ){
+    public Poblacion( int tam ){
         Tablero t;
-
-        for( i in 0..99){
+        for( i in 0..<tam){
             t = new Tablero();
             poblacion.add( t );
         }        
     }
     
-    public ArrayList<Tablero> get5randoms(){
-        Collections.shuffle( poblacion );
-        return [ poblacion[0], poblacion[1], poblacion[2], poblacion[3], poblacion[4] ];
+    /** Obtenemos los padres que se van a cruzar, de acuerdo a las propiedaddes
+     *de esta clase*/
+    public ArrayList<Tablero> getParents(){
+        Collections.sort( poblacion );
+        def middle =  (int)this.poblacion.size() / 2; ///
+        def bests = (ArrayList) this.poblacion[0..<middle];
+        def worst = (ArrayList) this.poblacion[middle..<this.poblacion.size()];
+        
+        //obtenemos un porcentaje de los mejores
+        def best_total = (int) ( parentsPercent * bestPercent ) * poblacion.size();
+        def worst_total = (int) ( parentsPercent * worstPercent) * poblacion.size();
+        
+        def selections_bests = bests[0..<best_total];
+        
+        def selections_worst = [];
+        for ( i in 0..<worst_total){
+            def pos = r.nextInt( worst.size() );
+            selections_worst << worst[pos];
+            worst.remove( pos );
+        }
+            
+        def r = selections_bests + selections_worst;
+        //Si no es par, agregamos alguno de los mejores
+        if( r.size() % 2 != 0) r.add( bests[ best.size() - 1 ] );
+        
+        return r;
+    }
+    
+    
+    public ArrayList<Tablero> getChilds( ArrayList<Tablero> parents){
+        def pares = parents.collate( 2 );
+        def childs = [];
+        for( i in pares){
+            childs <<  i[0].cruza( i[1] );
+        }
+        return childs;
     }
     
     public ArrayList<Tablero> get2best( ArrayList<Tablero> tableros ){

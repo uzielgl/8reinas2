@@ -18,6 +18,13 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Poblacion p = new Poblacion( 100 );      
+        ArrayList<Tablero> parents = p.getParents(  );
+  
+        
+        
+        
         //Tablero t = new Tablero();
         
         /*
@@ -25,9 +32,36 @@ public class Main {
         System.out.println( "Ataques : " + t.getCalidad() );
         * */
         
+        /*
+        Tablero t = new Tablero();
+        println t.bidimensional();
+        println t.getCalidad();        
+        /*
+         *
+        for(i in 0..1000){
+            t.mutate();
+        
+            println t.bidimensional();
+            println t.getCalidad();
+        }*/
+        
+     
+        
+        /*
+        Tablero t2 = new Tablero();
+        println t2.bidimensional();
+        println t2.getCalidad();
+        
+        Tablero c = t.cruza( t2 );
+        println c.bidimensional();
+        println c.getCalidad();
+        */
         
         
         
+        
+        
+        /*
         
         for( j in 1..30 ){
             
@@ -62,7 +96,7 @@ public class Main {
             
         }
         
-        
+        */
         
         
 
