@@ -114,19 +114,42 @@ class Tablero implements Comparable<Tablero>{
             def pos = r.nextInt(2);
             def opuesto_pos = pos == 0 ? 1: 0;
             def tablero_to_user = [ queens1, queens2 ][ pos ];
+            def tablero_opuesto = [ queens1, queens2 ][ opuesto_pos ];
             
-            queens << tablero_to_user[ i ];
+            if( isQueenIn( queens, tablero_to_user[i] ) ){
+                //println "TRUE"
+                queens << tablero_opuesto[i];
+            }else
+                queens << tablero_to_user[ i ];
         }      
         
         Tablero tableroHijo = new Tablero( queens );
-        
-        println queens1.size();
-        println queens1.size();
-        println queens.size();
-        println tableroHijo.getReinas();
+        /*
+        println queens1;
+        println queens2
+        println queens
+        */
+        //println tableroHijo.getReinas();
+        /*
+        if( tableroHijo.getReinas().size() < 8){
+            //println this.bidimensional();
+            //println other.bidimensional();
+            //println tableroHijo.bidimensional();
+            println this.getReinas();
+            println other.getReinas();
+            println tableroHijo.getReinas();
+        }
         println "";
-        
+        */
         return tableroHijo
+    }
+    
+    /** Determina si la reina está en ese arreglo de reinas*/
+    public isQueenIn( ArrayList reinas, Reina reina){
+        for( r in reinas){
+            if( r == reina ) return true;
+        }
+        return false;
     }
     
      public mutate( ){

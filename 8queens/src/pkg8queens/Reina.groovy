@@ -24,6 +24,8 @@ class Reina {
     }
     
     public String toString(){
+        //return "R";
+        //return "( $row, $col )"
         return "R";
     }
     
@@ -46,13 +48,16 @@ class Reina {
         return m;
     }
     
+    @Override
     public boolean equals( Reina o){
         if ( row == o.row && col == o.col ) return true;
         return false;
     }
     
-    
-    
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
     
 }
 

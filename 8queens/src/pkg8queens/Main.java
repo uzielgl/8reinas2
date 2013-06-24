@@ -18,36 +18,51 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int i = 0;
-        Tablero best_solucion = null;
-        Poblacion p = new Poblacion( 100 );      
-        for( ; i<10000; i++){
         
-            
-            ArrayList<Tablero> parents = p.getParents();
-            ArrayList<Tablero> childs = p.getChilds( parents);
-            
-            //Agregamos los hijos a la población inicial y ordenamos
-            p.poblacion.addAll(childs);
-            Collections.sort(p.poblacion);
+        for ( int a = 1; a < 31; a++){
+        
+            int i = 0;
+            Tablero best_solucion = null;
+            Poblacion p = new Poblacion( 100 );      
+            for( ; i<10000; i++){
+                ArrayList<Tablero> parents = p.getParents();
+                ArrayList<Tablero> childs = p.getChilds( parents);
+                //Mutamos los hijos
+                p.mutate( childs );
 
-            //Eliminamos los peores
-            p.poblacion = new ArrayList<Tablero>( p.poblacion.subList(0, 100) );
-            
-            //Posible solución 
-            best_solucion = (Tablero) p.poblacion.get(0);
-            System.out.println("evaluacion " + i);
-            System.out.println("calidad "  + best_solucion.getCalidad() );
-            //System.out.println( best_solucion.bidimensional() ) ;
-            if( best_solucion.getCalidad() == 0){
-                break;
+                //Agregamos los hijos a la población inicial y ordenamos
+                p.poblacion.addAll(childs);
+
+                //Eliminamos los peores
+                Collections.sort(p.poblacion);
+                p.poblacion = new ArrayList<Tablero>( p.poblacion.subList(0, 100) );
+
+                //Posible solución 
+                best_solucion = (Tablero) p.poblacion.get(0);
+                if( i % 1000 == 0 ){
+                    System.out.println("evaluacion " + i);
+                    System.out.println("calidad "  + best_solucion.getCalidad() );
+                //System.out.println( best_solucion.bidimensional() ) ;
+                }
+                if( best_solucion.getCalidad() == 0){
+                    break;
+                }
             }
+            
+            /*
+            System.out.println( best_solucion.bidimensional() );
+            System.out.println("evaluaciones " + i);
+            System.out.println( best_solucion );
+            * */
+            
+            System.out.println("--------------- Corrida " + a + " ------------------");
+            System.out.println("Evaluciones o generaciones: " + i);
+            System.out.println(best_solucion.bidimensional() );
+            System.out.println("Calidad: " + best_solucion );
+            System.out.println("---------------------------------------------");
+            System.out.println("");
+            
         }
-        
-        System.out.println( best_solucion.bidimensional() );
-        System.out.println("evaluaciones" + i);
-        System.out.println( best_solucion );
-        
         
         
         
